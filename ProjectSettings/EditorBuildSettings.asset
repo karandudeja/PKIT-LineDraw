@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MR-LineDraw.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/MR-LineDraw-2.unity
+    guid: 69b4913099e054f4f8b5c05436f3d24a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 7cc4b8308b015d24797845017849793f, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 21b3ab7b1980d7a4a8cb06e245a3321d, type: 2}
