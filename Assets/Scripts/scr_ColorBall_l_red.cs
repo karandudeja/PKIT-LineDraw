@@ -24,6 +24,10 @@ public class scr_ColorBall_l_red : MonoBehaviour
 
     private bool isLeftHandDrawing;
 
+    private GameObject[] leftTagObjects;
+
+    public GameObject leftHandTextObjectContainer;
+
     private void Start()
     {
         currentColorIndex = 0;
@@ -41,10 +45,12 @@ public class scr_ColorBall_l_red : MonoBehaviour
             transform.position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch);
             transform.rotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch);
             isLeftHandDrawing = true;
+            leftHandTextObjectContainer.SetActive(true);
         }
         else
         {
             isLeftHandDrawing = false;
+            leftHandTextObjectContainer.SetActive(false);
         }
 
         transform.position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch) + new Vector3(0, 0, 0.05f);
@@ -57,9 +63,13 @@ public class scr_ColorBall_l_red : MonoBehaviour
         {
             currentDrawing = null;
         }
-        else if (OVRInput.GetDown(OVRInput.Button.One))
+        else if (OVRInput.GetUp(OVRInput.RawButton.X))
         {
             //SwitchColorsFunc();
+
+
+            //DeleteLastLeftFunc();
+            Invoke("DeleteLastLeftFunc", 0.33f);
         }
 
     }
@@ -75,6 +85,9 @@ public class scr_ColorBall_l_red : MonoBehaviour
             currentDrawing.startWidth = currentDrawing.endWidth = penWidth;
             currentDrawing.positionCount = 1;
             currentDrawing.SetPosition(0, tip.transform.position);
+
+            currentDrawing.name = "left-line";
+            currentDrawing.tag = "left";
         }
         else
         {
@@ -99,5 +112,14 @@ public class scr_ColorBall_l_red : MonoBehaviour
             currentColorIndex++;
         }
         tipMaterial.color = penColors[currentColorIndex];
+    }
+
+    private void DeleteLastLeftFunc()
+    {
+        leftTagObjects = GameObject.FindGameObjectsWithTag("left");
+        if (leftTagObjects.Length > 0) 
+        {
+            Destroy(leftTagObjects[leftTagObjects.Length - 1]);
+        }
     }
 }

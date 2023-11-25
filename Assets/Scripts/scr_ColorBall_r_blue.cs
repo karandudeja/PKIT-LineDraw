@@ -24,6 +24,9 @@ public class scr_ColorBall_r_blue : MonoBehaviour
 
     private bool isRightHandDrawing;
 
+    private GameObject[] rightTagObjects;
+    public GameObject rightHandTextObjectContainer;
+
     private void Start()
     {
         currentColorIndex = 0;
@@ -41,10 +44,14 @@ public class scr_ColorBall_r_blue : MonoBehaviour
             transform.position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
             transform.rotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
             isRightHandDrawing = true;
+
+            rightHandTextObjectContainer.SetActive(true);
         }
         else
         {
             isRightHandDrawing = false;
+
+            rightHandTextObjectContainer.SetActive(false);
         }
 
         transform.position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) + new Vector3(0, 0, 0.05f);
@@ -57,9 +64,11 @@ public class scr_ColorBall_r_blue : MonoBehaviour
         {
             currentDrawing = null;
         }
-        else if (OVRInput.GetDown(OVRInput.Button.One))
+        else if (OVRInput.GetUp(OVRInput.RawButton.A))
         {
             //SwitchColorsFunc();
+
+            Invoke("DeleteLastRightFunc", 0.33f);
         }
 
     }
@@ -75,6 +84,9 @@ public class scr_ColorBall_r_blue : MonoBehaviour
             currentDrawing.startWidth = currentDrawing.endWidth = penWidth;
             currentDrawing.positionCount = 1;
             currentDrawing.SetPosition(0, tip.transform.position);
+
+            currentDrawing.name = "right-line";
+            currentDrawing.tag = "right";
         }
         else
         {
@@ -99,5 +111,14 @@ public class scr_ColorBall_r_blue : MonoBehaviour
             currentColorIndex++;
         }
         tipMaterial.color = penColors[currentColorIndex];
+    }
+
+    private void DeleteLastRightFunc()
+    {
+        rightTagObjects = GameObject.FindGameObjectsWithTag("right");
+        if (rightTagObjects.Length > 0)
+        {
+            Destroy(rightTagObjects[rightTagObjects.Length - 1]);
+        }
     }
 }
