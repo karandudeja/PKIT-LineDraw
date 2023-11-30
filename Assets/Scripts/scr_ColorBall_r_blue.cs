@@ -38,7 +38,7 @@ public class scr_ColorBall_r_blue : MonoBehaviour
     {
         
         // While user holds the left hand trigger
-        if (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.0f)
+        if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.0f)
         {
             // Assign left controller's position and rotation to cube
             transform.position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
@@ -54,7 +54,7 @@ public class scr_ColorBall_r_blue : MonoBehaviour
             rightHandTextObjectContainer.SetActive(false);
         }
 
-        transform.position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) + new Vector3(0, 0, 0.05f);
+        transform.position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) + new Vector3(-0.02f, 0, 0.05f);
 
         if (isRightHandDrawing)
         {
@@ -64,7 +64,7 @@ public class scr_ColorBall_r_blue : MonoBehaviour
         {
             currentDrawing = null;
         }
-        else if (OVRInput.GetUp(OVRInput.RawButton.A))
+        else if (OVRInput.GetUp(OVRInput.RawButton.A) || OVRInput.GetUp(OVRInput.RawButton.B))
         {
             //SwitchColorsFunc();
 
